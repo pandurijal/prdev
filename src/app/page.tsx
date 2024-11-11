@@ -22,11 +22,19 @@ const tags = [
 export default function Home() {
   const projects: Project[] = [
     {
-      id: "rameshclinic",
-      title: "Ramesh Clinic",
-      desc: "A professional medical website developed for Dr. Ashwin Ramesh. Features a modern, user-friendly interface that showcases medical services, appointment scheduling, and patient resources. Built with performance and accessibility in mind.",
+      id: "review-cv",
+      title: "Review CV",
+      desc: "A comprehensive resume review service designed to help job seekers improve their chances of success. Features detailed analysis of resumes, highlighting strengths and areas for improvement. Provides personalized feedback and tips for enhancing application materials.",
       url: {
-        live: "https://rameshclinic.com",
+        live: "https://review-cv.fly.dev",
+      },
+    },
+    {
+      id: "review-upwork",
+      title: "Review Upwork Profile",
+      desc: "Review your Upwork profile and get a detailed analysis of your profile, highlighting strengths and areas for improvement. Provides personalized feedback and tips for enhancing your profile.",
+      url: {
+        live: "https://review-upwork.fly.dev",
       },
     },
     {
@@ -35,6 +43,14 @@ export default function Home() {
       desc: "An innovative conversation tool designed to foster meaningful connections. Generates thought-provoking questions for deep discussions, perfect for team building, dating, or personal development. Features dynamic question generation and category-based filtering.",
       url: {
         live: "https://deepertalk.co",
+      },
+    },
+    {
+      id: "rameshclinic",
+      title: "Ramesh Clinic",
+      desc: "A professional medical website developed for Dr. Ashwin Ramesh. Features a modern, user-friendly interface that showcases medical services, appointment scheduling, and patient resources. Built with performance and accessibility in mind.",
+      url: {
+        live: "https://rameshclinic.com",
       },
     },
     {
