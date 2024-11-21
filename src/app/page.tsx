@@ -240,7 +240,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
                   <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-                    18+
+                    {projects.length}+
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
                     Successful Projects
