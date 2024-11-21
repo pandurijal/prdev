@@ -1,4 +1,18 @@
 // app/page.tsx
+export const metadata = {
+  title: 'PR DEV Studio - Web Development & Digital Solutions',
+  description: 'A digital studio crafting exceptional web experiences. We transform ideas into powerful, user-centric solutions using cutting-edge technologies.',
+  keywords: ['web development', 'mobile apps', 'e-commerce', 'UI/UX design', 'digital solutions'],
+  openGraph: {
+    title: 'PR DEV Studio - Web Development & Digital Solutions',
+    description: 'A digital studio crafting exceptional web experiences. We transform ideas into powerful, user-centric solutions using cutting-edge technologies.',
+    url: 'https://prdev.io',
+    siteName: 'PR DEV Studio',
+    locale: 'en_US',
+    type: 'website',
+  },
+};
+
 interface Url {
   live?: string;
   repo?: string;
