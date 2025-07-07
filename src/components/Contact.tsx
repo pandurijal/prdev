@@ -37,12 +37,22 @@ const Contact: React.FC = () => {
             </div>
             
             <div className="flex space-x-4">
-              <button className="bg-white/10 hover:bg-white/20 p-3 rounded-lg transition-colors">
+              <a 
+                href="https://github.com/pandurijal" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-white/10 hover:bg-white/20 p-3 rounded-lg transition-colors"
+              >
                 <Github className="h-6 w-6" />
-              </button>
-              <button className="bg-white/10 hover:bg-white/20 p-3 rounded-lg transition-colors">
+              </a>
+              <a 
+                href="https://twitter.com/pandurijal" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-white/10 hover:bg-white/20 p-3 rounded-lg transition-colors"
+              >
                 <Twitter className="h-6 w-6" />
-              </button>
+              </a>
             </div>
           </div>
           

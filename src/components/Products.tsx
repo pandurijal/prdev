@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, MapPin, Calculator, Brain, ExternalLink } from 'lucide-react';
+import { MessageCircle, MapPin, Calculator, Brain, ExternalLink, Zap, Image, TestTube, Users, Wifi, Eye, Keyboard } from 'lucide-react';
 
 interface Product {
   icon: React.ReactNode;
@@ -11,27 +11,69 @@ interface Product {
 const products: Product[] = [
   {
     icon: <MessageCircle className="h-8 w-8" />,
-    name: "Deepertalk",
+    name: "Deepertalk.app",
     description: "Learn languages through daily interactive reading",
-    url: "#"
+    url: "https://deepertalk.app"
   },
   {
     icon: <MapPin className="h-8 w-8" />,
     name: "Thingstodo.id",
     description: "Hyperlocal tourism guide for Indonesia",
-    url: "#"
+    url: "https://thingstodo.id"
   },
   {
     icon: <Calculator className="h-8 w-8" />,
     name: "MentalMathPractice.com",
     description: "Web-based mental math trainer",
-    url: "#"
+    url: "https://mentalmathpractice.com"
+  },
+  {
+    icon: <Image className="h-8 w-8" />,
+    name: "Pasfoto.id",
+    description: "Professional passport photo editing service",
+    url: "https://pasfoto.id"
   },
   {
     icon: <Brain className="h-8 w-8" />,
-    name: "FlashcardGenerator.app",
-    description: "AI-powered flashcard generator",
-    url: "#"
+    name: "TesIQ.id",
+    description: "Comprehensive IQ testing platform",
+    url: "https://tesiq.id"
+  },
+  {
+    icon: <Users className="h-8 w-8" />,
+    name: "TesMBTI.id",
+    description: "MBTI personality assessment tool",
+    url: "https://tesmbti.id"
+  },
+  {
+    icon: <TestTube className="h-8 w-8" />,
+    name: "TesMental.id",
+    description: "Mental health assessment platform",
+    url: "https://tesmental.id"
+  },
+  {
+    icon: <Zap className="h-8 w-8" />,
+    name: "TesKoran.id",
+    description: "Newspaper reading comprehension test",
+    url: "https://teskoran.id"
+  },
+  {
+    icon: <Wifi className="h-8 w-8" />,
+    name: "TesKecepatanInternet.id",
+    description: "Internet speed testing service",
+    url: "https://teskecepataninternet.id"
+  },
+  {
+    icon: <Eye className="h-8 w-8" />,
+    name: "TesButaWarna.id",
+    description: "Color blindness testing platform",
+    url: "https://tesbutawarna.id"
+  },
+  {
+    icon: <Keyboard className="h-8 w-8" />,
+    name: "TesMenugetik.id",
+    description: "Typing speed and accuracy test",
+    url: "https://tesmengetik.id"
   }
 ];
 
@@ -48,7 +90,7 @@ const Products: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product, index) => (
             <div 
               key={index}
@@ -63,10 +105,15 @@ const Products: React.FC = () => {
               <p className="text-gray-600 mb-4 text-sm leading-relaxed">
                 {product.description}
               </p>
-              <button className="text-blue-600 font-medium flex items-center text-sm group-hover:text-blue-700 transition-colors">
+              <a 
+                href={product.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 font-medium flex items-center text-sm group-hover:text-blue-700 transition-colors"
+              >
                 Visit site
                 <ExternalLink className="ml-1 h-3 w-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </button>
+              </a>
             </div>
           ))}
         </div>
