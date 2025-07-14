@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, MapPin, Calculator, Brain, ExternalLink, Zap, Image, TestTube, Users, Wifi, Eye, Keyboard } from 'lucide-react';
+import { MessageCircle, MapPin, Calculator, Brain, ExternalLink, Zap, Image, TestTube, Users, Wifi, Eye, Keyboard, BookOpen } from 'lucide-react';
 
 interface Product {
   icon: React.ReactNode;
@@ -71,9 +71,21 @@ const products: Product[] = [
   },
   {
     icon: <Keyboard className="h-8 w-8" />,
-    name: "TesMenugetik.id",
+    name: "TesMengetik.id",
     description: "Typing speed and accuracy test",
     url: "https://tesmengetik.id"
+  },
+  {
+    icon: <Keyboard className="h-8 w-8" />,
+    name: "TesKeyboard.id",
+    description: "Keyboard layout and typing practice",
+    url: "https://teskeyboard.id"
+  },
+  {
+    icon: <BookOpen className="h-8 w-8" />,
+    name: "BelajarBahasaJepang.id",
+    description: "Interactive Japanese language learning platform",
+    url: "https://belajarbahasajepang.id"
   }
 ];
 
