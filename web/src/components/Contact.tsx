@@ -1,7 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Calendar, Github, Twitter } from 'lucide-react';
 
 const Contact: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      setMessage('Please enter a valid email address');
+      setIsSuccess(false);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage('');
+
+    try {
+      const response = await fetch('http://localhost:8787/api/email-capture', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage('Thanks! We\'ll be in touch soon.');
+        setIsSuccess(true);
+        setEmail('');
+      } else {
+        setMessage(data.error || 'Something went wrong. Please try again.');
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      setMessage('Network error. Please try again.');
+      setIsSuccess(false);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,48 +101,39 @@ const Contact: React.FC = () => {
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
-            <form className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-white/70 text-white"
-                  placeholder="Your name"
-                />
-              </div>
-              
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
+                  Email Address
                 </label>
                 <input
                   type="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-white/70 text-white"
                   placeholder="your.email@example.com"
+                  required
+                  disabled={isSubmitting}
                 />
               </div>
               
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Project Details
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-white/70 text-white resize-none"
-                  placeholder="Tell us about your project..."
-                ></textarea>
-              </div>
+              {message && (
+                <div className={`p-3 rounded-lg text-sm ${
+                  isSuccess 
+                    ? 'bg-green-500/20 border border-green-500/30 text-green-100' 
+                    : 'bg-red-500/20 border border-red-500/30 text-red-100'
+                }`}>
+                  {message}
+                </div>
+              )}
               
               <button
                 type="submit"
-                className="w-full bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                disabled={isSubmitting}
+                className="w-full bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Get Started'}
               </button>
             </form>
           </div>
