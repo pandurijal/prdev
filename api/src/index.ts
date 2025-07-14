@@ -8,8 +8,27 @@ interface EmailCaptureRequest {
   email: string;
 }
 
+interface FormSubmissionRequest {
+  name: string;
+  email: string;
+  subject: string;
+  details: string;
+}
+
 interface EmailCaptureData {
   email: string;
+  product?: string;
+  source?: string;
+  user_agent?: string;
+  ip_address?: string;
+  country?: string;
+}
+
+interface FormSubmissionData {
+  name: string;
+  email: string;
+  subject: string;
+  details: string;
   product?: string;
   source?: string;
   user_agent?: string;
@@ -125,6 +144,108 @@ export default {
         return new Response(
           JSON.stringify({ 
             error: 'Failed to capture email' 
+          }),
+          { 
+            status: 500, 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+      }
+    }
+    
+    if (url.pathname === '/api/form-submission' && request.method === 'POST') {
+      try {
+        const sql = neon(env.DATABASE_URL);
+        
+        // Parse request body
+        const body: FormSubmissionRequest = await request.json();
+        
+        // Validate required fields
+        if (!body.name || body.name.trim().length === 0) {
+          return new Response(
+            JSON.stringify({ error: 'Name is required' }),
+            { 
+              status: 400, 
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+        
+        if (!body.email || !isValidEmail(body.email)) {
+          return new Response(
+            JSON.stringify({ error: 'Valid email is required' }),
+            { 
+              status: 400, 
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+        
+        if (!body.subject || body.subject.trim().length === 0) {
+          return new Response(
+            JSON.stringify({ error: 'Subject is required' }),
+            { 
+              status: 400, 
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+        
+        if (!body.details || body.details.trim().length === 0) {
+          return new Response(
+            JSON.stringify({ error: 'Details are required' }),
+            { 
+              status: 400, 
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+        
+        // Extract metadata
+        const referrer = request.headers.get('Referer') || '';
+        const userAgent = request.headers.get('User-Agent') || '';
+        const ipAddress = request.headers.get('CF-Connecting-IP') || 
+                         request.headers.get('X-Forwarded-For') || 
+                         'unknown';
+        const country = request.headers.get('CF-IPCountry') || getCountryFromIP(ipAddress);
+        const product = extractProduct(referrer, userAgent);
+        
+        const submissionData: FormSubmissionData = {
+          name: body.name.trim(),
+          email: body.email.toLowerCase().trim(),
+          subject: body.subject.trim(),
+          details: body.details.trim(),
+          product,
+          source: referrer,
+          user_agent: userAgent,
+          ip_address: ipAddress,
+          country: country
+        };
+        
+        // Insert into database
+        await sql`
+          INSERT INTO form_submissions (name, email, subject, details, product, source, user_agent, ip_address, country)
+          VALUES (${submissionData.name}, ${submissionData.email}, ${submissionData.subject}, ${submissionData.details}, 
+                  ${submissionData.product}, ${submissionData.source}, ${submissionData.user_agent}, 
+                  ${submissionData.ip_address}, ${submissionData.country})
+        `;
+        
+        return new Response(
+          JSON.stringify({ 
+            success: true, 
+            message: 'Form submitted successfully' 
+          }),
+          { 
+            status: 200, 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
+        
+      } catch (error) {
+        console.error('Form submission error:', error);
+        return new Response(
+          JSON.stringify({ 
+            error: 'Failed to submit form' 
           }),
           { 
             status: 500, 
