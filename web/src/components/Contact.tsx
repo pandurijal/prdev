@@ -41,7 +41,11 @@ const Contact: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:8787/api/form-submission', {
+      const apiUrl = import.meta.env.PROD 
+        ? 'https://prdev-api.pandurijal.workers.dev/api/form-submission'
+        : 'http://localhost:8787/api/form-submission';
+        
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

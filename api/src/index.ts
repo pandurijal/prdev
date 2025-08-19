@@ -60,6 +60,7 @@ function extractProduct(referrer: string, userAgent: string): string {
   if (referrer.includes('tesmengetik')) return 'TesMengetik.id';
   if (referrer.includes('teskeyboard')) return 'TesKeyboard.id';
   if (referrer.includes('belajarbahasajepang')) return 'BelajarBahasaJepang.id';
+  if (referrer.includes('belajarbahasakorea')) return 'BelajarBahasaKorea.id';
   if (referrer.includes('thingstodo')) return 'Thingstodo.id';
   if (referrer.includes('pasfoto')) return 'Pasfoto.id';
   if (referrer.includes('teskecepatan')) return 'TesKecepatanInternet.id';

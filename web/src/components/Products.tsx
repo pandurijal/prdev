@@ -86,6 +86,12 @@ const products: Product[] = [
     name: "BelajarBahasaJepang.id",
     description: "Interactive Japanese language learning platform",
     url: "https://belajarbahasajepang.id"
+  },
+  {
+    icon: <BookOpen className="h-8 w-8" />,
+    name: "BelajarBahasaKorea.id",
+    description: "Interactive Korean language learning platform",
+    url: "https://belajarbahasakorea.id"
   }
 ];
 
