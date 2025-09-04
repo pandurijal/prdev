@@ -92,6 +92,18 @@ const products: Product[] = [
     name: "BelajarBahasaKorea.id",
     description: "Interactive Korean language learning platform",
     url: "https://belajarbahasakorea.id"
+  },
+  {
+    icon: <Eye className="h-8 w-8" />,
+    name: "Tesmata.id",
+    description: "Free online vision test for eye health assessment",
+    url: "https://tesmata.id"
+  },
+  {
+    icon: <Brain className="h-8 w-8" />,
+    name: "TesKemampuanAkademik.id",
+    description: "Online Academic Ability Test - Free simulation for verbal, numeric & logic reasoning",
+    url: "https://teskemampuanakademik.id"
   }
 ];
 
