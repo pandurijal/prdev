@@ -258,6 +258,58 @@ export default {
       }
     }
     
+    // Mayar Webhook Handler
+    if (url.pathname === '/api/mayar-webhook' && request.method === 'POST') {
+      try {
+        const rawBody = await request.text();
+        const signature = request.headers.get('x-mayar-signature') || 
+                         request.headers.get('x-mayar-webhook-signature');
+        
+        console.log('Mayar webhook received:', rawBody);
+        
+        const body = JSON.parse(rawBody);
+        
+        if (body.event === 'payment.received' && body.data) {
+          const { customerEmail, productName, productId } = body.data;
+          
+          console.log('Payment received:', { customerEmail, productName, productId });
+          
+          if (productName && (productName.includes('PasFoto') || productName.includes('Credits'))) {
+            console.log('Routing to PasFoto...');
+            
+            const pasfotoResponse = await fetch(`https://pasfoto.id/api/payments/webhook`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-mayar-signature': signature || '',
+              },
+              body: rawBody,
+            });
+            
+            const result = await pasfotoResponse.text();
+            console.log('PasFoto webhook response:', result);
+            
+            return new Response(result, { 
+              status: pasfotoResponse.status, 
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            });
+          }
+        }
+        
+        return new Response(
+          JSON.stringify({ received: true }),
+          { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+        
+      } catch (error) {
+        console.error('Mayar webhook error:', error);
+        return new Response(
+          JSON.stringify({ error: 'Webhook processing failed' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+    
     return new Response('Not Found', { 
       status: 404, 
       headers: corsHeaders 

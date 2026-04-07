@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, MapPin, Calculator, Brain, ExternalLink, Zap, Image, TestTube, Users, Wifi, Eye, Keyboard, BookOpen } from 'lucide-react';
+import { MessageCircle, MapPin, Calculator, Brain, ExternalLink, Zap, Image, TestTube, Users, Wifi, Eye, Keyboard, BookOpen, Ship, GraduationCap, Sparkles, Code } from 'lucide-react';
 
 interface Product {
   icon: React.ReactNode;
@@ -104,6 +104,30 @@ const products: Product[] = [
     name: "TesKemampuanAkademik.id",
     description: "Online Academic Ability Test - Free simulation for verbal, numeric & logic reasoning",
     url: "https://teskemampuanakademik.id"
+  },
+  {
+    icon: <Ship className="h-8 w-8" />,
+    name: "Seablings.org",
+    description: "South-East Asian initiative to unite the region like siblings",
+    url: "https://seablings.org"
+  },
+  {
+    icon: <GraduationCap className="h-8 w-8" />,
+    name: "BelajarVibeCoding.id",
+    description: "Learn AI-assisted coding from scratch - platform edukasi AI coding untuk developer",
+    url: "https://belajarvibecoding.id"
+  },
+  {
+    icon: <Sparkles className="h-8 w-8" />,
+    name: "Produktif.ai",
+    description: "AI productivity platform with interactive learning and video AI generation tools",
+    url: "https://produktif.ai"
+  },
+  {
+    icon: <Code className="h-8 w-8" />,
+    name: "VibeCodingStudio.id",
+    description: "AI-powered coding studio from Indonesia for building websites and apps",
+    url: "https://vibecodingstudio.id"
   }
 ];
 
