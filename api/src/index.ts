@@ -270,11 +270,11 @@ export default {
         const body = JSON.parse(rawBody);
         
         if (body.event === 'payment.received' && body.data) {
-          const { customerEmail, productName, productId } = body.data;
+          const { customerEmail, productDescription, productId } = body.data;
           
-          console.log('Payment received:', { customerEmail, productName, productId });
+          console.log('Payment received:', { customerEmail, productDescription, productId });
           
-          if (productName && (productName.includes('PasFoto') || productName.includes('Credits'))) {
+          if (productDescription && (productDescription.includes('PasFoto') || productDescription.includes('Credits'))) {
             console.log('Routing to PasFoto...');
             
             const pasfotoResponse = await fetch(`https://pasfoto.id/api/payments/webhook`, {
